@@ -1,0 +1,7 @@
+export * from "./UsuarioIcone"
+export * from "./BarraNavegacao"
+export * from "./Livro"
+export * from "./Paragrafo"
+export * from "./Rodape"
+export * from "./Tabela"
+export * from "./Titulo"

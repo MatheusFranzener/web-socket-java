@@ -1,0 +1,10 @@
+{
+  "pessoa": {
+    "cpf": null,
+    "nome": null,
+    "sobrenome": null,
+    "email": null,
+    "senha": null,
+    "genero": null
+  }
+}

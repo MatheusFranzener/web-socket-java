@@ -1,0 +1,13 @@
+{
+  "heads": {
+    "head1": "ISBN",
+    "head2": "Título",
+    "head3": "Autor",
+    "head4": "Revisor",
+    "head5": "Status",
+    "head6": "Qtd. Pág.",
+    "head7": "Pág. Rev.",
+    "head8": "Editora",
+    "head9": "Ações"
+  }
+}

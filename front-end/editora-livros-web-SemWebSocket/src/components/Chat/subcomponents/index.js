@@ -1,0 +1,6 @@
+export * from "./BarraChat"
+export * from "./Chat"
+export * from "./Mensagens"
+export * from "./Mensagem"
+export * from "./BarraLateralChat"
+export * from "./PessoasChat"
