@@ -10,6 +10,10 @@ import br.senai.sc.editoralivros.service.PessoaService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,12 +29,23 @@ public class MensagemChatController {
         return ResponseEntity.ok(mensagemChatService.findAllByLivro(livroService.findById(isbn).get()));
     }
 
-    @PostMapping()
-    public ResponseEntity<?> salvarMensagem(@RequestBody MensagemChatDTO mensagemChatDTO) {
+//    @PostMapping()
+//    public ResponseEntity<?> salvarMensagem(@RequestBody MensagemChatDTO mensagemChatDTO) {
+//        MensagemChat mensagemChat = new MensagemChat();
+//        mensagemChat.setLivro(livroService.findById(mensagemChatDTO.getLivro().getIsbn()).get());
+//        mensagemChat.setRemetente(pessoaService.findById(mensagemChatDTO.getRemetente().getCpf()).get());
+//        mensagemChat.setMensagem(mensagemChatDTO.getMensagem());
+//        return ResponseEntity.ok(mensagemChatService.save(mensagemChat));
+//    }
+
+    @MessageMapping("/livro/{isbn}")
+    @SendTo("/livro/{isbn}/chat")
+    public MensagemChat salvarMensagem(@DestinationVariable Long isbn, @Payload MensagemChatDTO mensagemChatDTO) {
         MensagemChat mensagemChat = new MensagemChat();
         mensagemChat.setLivro(livroService.findById(mensagemChatDTO.getLivro().getIsbn()).get());
         mensagemChat.setRemetente(pessoaService.findById(mensagemChatDTO.getRemetente().getCpf()).get());
         mensagemChat.setMensagem(mensagemChatDTO.getMensagem());
-        return ResponseEntity.ok(mensagemChatService.save(mensagemChat));
+        return mensagemChatService.save(mensagemChat);
     }
+
 }

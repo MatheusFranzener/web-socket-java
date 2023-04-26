@@ -12,14 +12,19 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 public class MensagemChat {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
     @JoinColumn(name = "livro_isbn")
     private Livro livro;
+
     @ManyToOne
     @JoinColumn(name = "remetente_cpf")
     private Pessoa remetente;
+
     private String mensagem;
+
 }
