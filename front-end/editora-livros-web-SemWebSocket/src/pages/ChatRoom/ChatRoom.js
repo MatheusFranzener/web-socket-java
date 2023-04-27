@@ -11,7 +11,7 @@ export const ChatRoom = () => {
     const isbn = useParams().isbn
     const [mensagens, setMensagens] = useState([]);
     const [mensagem, setMensagem] = useState({});
-    const { enviar } = useContext(WebSocketContext);
+    const { enviar, inscrever, stompClient } = useContext(WebSocketContext);
 
     useEffect(() => {
         async function carregar() {
@@ -28,16 +28,15 @@ export const ChatRoom = () => {
     }, []);
 
     useEffect(() => {
-        const novaMensagem = (response) => {
+        const acaoNovaMensagem = (response) => {
             const mensagemRecebida = JSON.parse(response.body);
-            console.log("Mensagem recebeida: " , mensagem);
+            console.log("Mensagem recebeida: ", mensagem);
             setMensagens([...mensagens, mensagemRecebida]);
         }
-
-        if() {
-           inscrever(`/livro/${isbn}/chat`, novaMensagem); 
+        if (stompClient) {
+            inscrever(`/livro/${isbn}/chat`, acaoNovaMensagem);
         }
-    }, [mensagens])
+    }, [mensagens, stompClient])
 
     const setDefaultMensagem = () => {
         const userCookie = Cookies.get('user');

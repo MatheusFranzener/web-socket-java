@@ -4,7 +4,7 @@ import * as Stomp from "stompjs";
 
 export const WebSocketContext = createContext(null);
 
-export const WebSocketService = ({children}) => {
+export const WebSocketService = ({ children }) => {
     const [stompClient, setStompClient] = useState(null);
 
     useEffect(() => {
@@ -40,8 +40,14 @@ export const WebSocketService = ({children}) => {
         }
     }
 
+    const inscrever = (caminho, acao) => {
+        if (!stompClient.subscriptions[caminho]) {
+            stompClient.subscribe(caminho, acao);
+        }
+    }
+
     return (
-        <WebSocketContext.Provider value={{stompClient, desconectar, enviar}}> 
+        <WebSocketContext.Provider value={{ stompClient, desconectar, enviar, inscrever }}>
             {children}
         </WebSocketContext.Provider>
     )
