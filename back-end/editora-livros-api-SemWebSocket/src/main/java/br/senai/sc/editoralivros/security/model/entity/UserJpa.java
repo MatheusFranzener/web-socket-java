@@ -36,6 +36,7 @@ public class UserJpa implements UserDetails {
     private String password;
 
     private String username;
+
     public UserJpa(Pessoa pessoa){
         this.pessoa = pessoa;
         this.accountNonExpired = true;

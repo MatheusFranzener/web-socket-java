@@ -23,14 +23,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+// Classe responsável por interceptar as requisições e verificar se o usuário está autenticado
 @AllArgsConstructor
 public class AutenticacaoFiltro extends OncePerRequestFilter {
-
-
 
     private final CookieUtils cookieUtils = new CookieUtils();
     private final JwtUtils jwtUtils = new JwtUtils();
 
+    //
     @Override
     protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain) throws IOException, ServletException {
         try {
@@ -45,9 +45,11 @@ public class AutenticacaoFiltro extends OncePerRequestFilter {
                     new UsernamePasswordAuthenticationToken(user.getUsername(),
                             user.getPassword(), user.getAuthorities());
             System.out.println(usernamePasswordAuthenticationToken);
-            SecurityContextHolder.getContext().setAuthentication(
-                    usernamePasswordAuthenticationToken);
+//            SecurityContextHolder.getContext().setAuthentication(
+//                    usernamePasswordAuthenticationToken);
 //            UserJpa user = cookieUtils.getUserCookie(request);
+
+            // Parte de renovação de cookie, no caso se o nome estiver o mesmo ele irá apenas reescrever o cookie, isso acontece apenas quando ele passa pelo filtro
 //            Cookie jwtCookie = cookieUtils.gerarTokenCookie(user);
 //            response.addCookie(jwtCookie);
 //            Cookie userCookie = cookieUtils.gerarUserCookie(user);
@@ -74,6 +76,7 @@ public class AutenticacaoFiltro extends OncePerRequestFilter {
         }
     }
 
+    // função que verifica novamente se a url é permitida caso o cookie não seja válido
     private void validarUrl(String url) throws ExUrlNaoPermitida {
         if (!(url.equals("/editora-livros-api/login/auth")
                 || url.equals("/editora-livros-api/logout")
@@ -86,6 +89,7 @@ public class AutenticacaoFiltro extends OncePerRequestFilter {
             System.out.println("URL não permitida: " + url);
             throw new ExUrlNaoPermitida();
         }
+
         System.out.println("URL permitida: " + url);
     }
 }

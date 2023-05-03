@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+// caso der erro utilizar essa classe, serve para transforamr o json em um objeto
 public class UserJpaDeserializer extends JsonDeserializer<UserJpa> {
     @Override
     public UserJpa deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {

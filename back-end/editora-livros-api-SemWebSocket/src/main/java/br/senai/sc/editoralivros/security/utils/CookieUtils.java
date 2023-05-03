@@ -23,7 +23,6 @@ public class CookieUtils {
         return cookie;
     }
 
-
     public String getTokenCookie(HttpServletRequest request) throws ExCookieNaoEncontrado {
         try {
             Cookie cookie = WebUtils.getCookie(request, "jwt");

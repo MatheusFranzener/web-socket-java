@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+// Classe responsável por carregar sozinho o usuário do banco de dados como UserDetails
 @Service
 public class JpaService implements UserDetailsService {
+
 
     @Autowired
     private PessoaRepository pessoaRepository;

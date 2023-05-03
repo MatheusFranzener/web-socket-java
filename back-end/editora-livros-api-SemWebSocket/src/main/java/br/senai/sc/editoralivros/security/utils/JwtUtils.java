@@ -12,15 +12,15 @@ public class JwtUtils {
 
     public String gerarToken(UserJpa usuario) {
         return Jwts.builder()
+                // emissor
                 .setIssuer("Editora de Livros")
+                // atributos que poderão ser acessados pelo token (exclusivo para o usuário)
                 .setSubject(usuario.getPessoa().getCpf().toString())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + 1800000))
                 .signWith(SignatureAlgorithm.HS256, senhaForte)
                 .compact();
     }
-
-
 
     public void validarToken(String token) throws ExTokenInvalido {
         try {
@@ -37,6 +37,5 @@ public class JwtUtils {
                 getBody().
                 getSubject());
     }
-
 
 }

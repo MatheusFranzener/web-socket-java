@@ -6,6 +6,7 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+// Classe responsável por carregar sozinho o usuário do google como oAuth2User
 @Service
 public class GoogleService extends DefaultOAuth2UserService {
 
@@ -13,6 +14,7 @@ public class GoogleService extends DefaultOAuth2UserService {
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest){
         OAuth2User oAuth2User = super.loadUser(userRequest);
+        // Cria um objeto UserGoogle através do oAuth2User
         return new UserGoogle(oAuth2User);
     }
 }
